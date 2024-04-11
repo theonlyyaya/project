@@ -1,8 +1,0 @@
-{
-  "name": "ReversIA",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "angular"
-}

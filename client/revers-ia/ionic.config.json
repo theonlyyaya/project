@@ -1,8 +1,7 @@
 {
-  "name": "ReversIA",
+  "name": "revers-ia",
   "integrations": {
-    "capacitor": {},
-    "cordova": {}
+    "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular-standalone"
 }

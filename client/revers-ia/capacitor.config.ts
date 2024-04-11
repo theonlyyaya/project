@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ReversIA',
+  appId: 'revers.ia',
+  appName: 'revers-ia',
   webDir: 'www/browser',
   server: {
     androidScheme: 'https'
