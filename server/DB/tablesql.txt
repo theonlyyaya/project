@@ -1,0 +1,76 @@
+Table JOUEUR
+
+Cette table stockera les informations des joueurs inscrits.
+
+sql
+
+CREATE TABLE JOUEUR (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    country VARCHAR(255),
+    profile_image VARCHAR(255) -- Chemin vers l'image de profil, si stockée localement ou URL
+);
+
+Table SESSION
+
+Cette table stockera les informations de session pour gérer l'authentification et la connexion des joueurs.
+
+sql
+
+CREATE TABLE SESSION (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    joueur_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    expiration_date DATETIME NOT NULL,
+    FOREIGN KEY (joueur_id) REFERENCES JOUEUR(id)
+);
+
+Table GAME
+
+Si vous prévoyez de stocker les jeux en cours des joueurs, vous pouvez utiliser une table pour cela.
+
+sql
+
+CREATE TABLE GAME (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    joueur_id INT NOT NULL,
+    game_state JSON NOT NULL, -- L'état du jeu au format JSON
+    start_time DATETIME NOT NULL,
+    end_time DATETIME,
+    FOREIGN KEY (joueur_id) REFERENCES JOUEUR(id)
+);
+
+Table DLMODEL
+
+Si vous souhaitez stocker des modèles de machine learning dans la base de données, vous pouvez utiliser une table dédiée.
+
+sql
+
+CREATE TABLE DLMODEL (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    model_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    model_file_path VARCHAR(255) NOT NULL, -- Chemin vers le fichier du modèle
+    upload_date DATETIME NOT NULL
+);
+
+Table MOVE
+
+Cette table enregistrera les mouvements joués dans chaque partie de jeu, ce qui peut être utile pour l'entraînement des modèles IA.
+
+sql
+
+CREATE TABLE MOVE (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    game_id INT NOT NULL,
+    player_id INT NOT NULL,
+    row INT NOT NULL,
+    col INT NOT NULL,
+    move_time DATETIME NOT NULL,
+    FOREIGN KEY (game_id) REFERENCES GAME(id),
+    FOREIGN KEY (player_id) REFERENCES JOUEUR(id)
+);
+
+Ces tables fournissent une structure de base pour stocker les informations des joueurs, des sessions, des jeux, des modèles de machine learning et des mouvements de jeu. Assurez-vous de personnaliser ces schémas en fonction des besoins spécifiques de votre application.
