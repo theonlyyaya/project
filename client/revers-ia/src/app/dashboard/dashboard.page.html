@@ -1,13 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      ReversIA
-    </ion-title>
-      <ion-icon (click)="openProfilePopup()" name="person-circle"></ion-icon>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
   <div class="dashboard">
     <ion-img src="../../assets/logo/ReversAI.png" style="min-width:241px; min-height:48px" alt="ReversAI"></ion-img>
@@ -21,8 +11,8 @@
       <ion-button class="round-button"> 
         <ion-icon name="star"></ion-icon>
       </ion-button>
-      <ion-button class="round-button">
-        <ion-icon name="share"></ion-icon>
+      <ion-button class="round-button" (click)="openProfile()">
+        <img src="https://www.svgviewer.dev/static-svgs/369581/profile-circle.svg"  alt="person-circle">
       </ion-button>
       <ion-button class="round-button">
         <ion-icon name="settings"></ion-icon>

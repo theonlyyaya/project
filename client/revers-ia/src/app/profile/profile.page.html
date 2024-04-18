@@ -1,0 +1,26 @@
+
+
+<ion-content [fullscreen]="true">
+    <div class="profile-container">
+        <div class="profile-image">
+        <ion-img [src]="userImage"></ion-img>
+        <ion-button expand="block" (click)="changeProfileImage()">Change Photo</ion-button>
+        </div>
+        <div class="profile-details">
+        <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="userName"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input type="email" [(ngModel)]="userEmail"></ion-input>
+        </ion-item>
+        <!-- Add more user details as needed -->
+        <ion-button expand="block" (click)="saveProfile()">Save</ion-button>
+        </div>
+        <ion-buttons slot="end">
+            <ion-button (click)="logout()">Logout</ion-button>
+        </ion-buttons>
+    </div>
+</ion-content>
+  

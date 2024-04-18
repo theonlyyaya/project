@@ -4,8 +4,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+    loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
     path: 'offline',
@@ -14,6 +17,10 @@ const routes: Routes = [
   {
     path: 'player-vs-ai',
     loadChildren: () => import('./player-vs-ai/player-vs-ai.module').then( m => m.PlayerVsAiPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
     path: 'ai-vs-ai',

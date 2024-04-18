@@ -1,10 +1,14 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from flask_cors import CORS
+from flask_session import Session
 import numpy as np
 import torch
 
 BOARD_SIZE=8
 app = Flask(__name__)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 CORS(app)
 
 def initialze_board():
@@ -257,33 +261,45 @@ class ReversiGrid():
 
 # Crée une instance du jeu Reversi
 reversi_game = ReversiGrid()    
-    
-@app.route('/get_board', methods=['GET'])
-def get_board():
-    return jsonify(reversi_game.board)
 
+@app.route("/start_game", methods=["GET"])
+def start_game():
+    session['game'] = ReversiGrid()
+    return jsonify({"status": "New game started"})
+    
 @app.route('/get_possible_moves', methods=['GET'])
 def get_possible_moves():
     return jsonify(get_legal_moves(reversi_game.board, reversi_game.current_player))
 
+@app.route('/get_board', methods=['GET'])
+def get_board():
+    game = session.get('game', None)
+    if game is None:
+        return jsonify({"error": "No game in progress"}), 404
+    return jsonify(game.board)
 
 @app.route('/make_move', methods=['POST'])
 def make_move():
+    game = session.get('game', None)
+    if game is None:
+        return jsonify({"error": "No game in progress"}), 404
+
     data = request.get_json()
     row = data['row']
     col = data['col']
-
-    result = reversi_game.make_move(row, col)
-    # Extract the winner information from the result
+    result = game.make_move(row, col)
+        # Extract the winner information from the result
     winner = result.get("winner")
     
     response = jsonify(result)
     response.headers.add('Access-Control-Allow-Origin', '*')  # Adjust the origin based on your requirements
     if winner:
         # Add the winner information to the response
-        response.headers.add('winner', winner) # type: ignore
+        response.headers.add('winner', winner) # type: ignor
 
-    return response
+    session['game'] = game  # Sauvegarde l'état du jeu modifié
+    return jsonify(result)
+
 
 
 @app.route('/make_one_move', methods=['POST'])
