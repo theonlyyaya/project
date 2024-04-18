@@ -20,4 +20,4 @@ echo "Bienvenue, " . $_SESSION['username'];
 // - Afficher un formulaire pour démarrer un nouveau jeu
 
 // N'oubliez pas de sécuriser les données sensibles et de vérifier les autorisations d'accès selon les besoins
-?>
+
