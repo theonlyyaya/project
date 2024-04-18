@@ -1,39 +1,52 @@
 <?php
-    // Connexion à la base de données
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "reversia_db";
+// Autoriser l'accès depuis n'importe quelle origine
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
-    // Vérification de la connexion
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+// Connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "reversia_db";
 
-    // Récupération des données du formulaire de connexion
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Requête SQL pour récupérer le joueur avec l'email donné
-    $sql = "SELECT * FROM JOUEUR WHERE email='$email'";
-    $result = $conn->query($sql);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    if ($result->num_rows > 0) {
-        // Joueur trouvé, vérification du mot de passe
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            // Mot de passe correct, connexion réussie
-            echo "Login successful";
-        } else {
-            // Mot de passe incorrect
-            echo "Incorrect password";
-        }
+$input = json_decode(file_get_contents("php://input"), true);
+
+$email = $input['email'] ?? '';
+$password = $input['password'] ?? '';
+
+if (empty($email) || empty($password)) {
+    echo "Email or password not provided";
+    exit;
+}
+
+$stmt = $conn->prepare("SELECT * FROM JOUEUR WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    if (password_verify($password, $row['password'])) {
+        echo "Login successful";
     } else {
-        // Joueur non trouvé avec l'email donné
-        echo "User not found";
+        echo "Incorrect password";
     }
+} else {
+    echo "User not found";
+}
 
-    $conn->close();
+$stmt->close();
+$conn->close();
 

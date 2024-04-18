@@ -1,4 +1,20 @@
 <?php
+// Autoriser l'accès depuis n'importe quelle origine
+header("Access-Control-Allow-Origin: *");
+
+// Autoriser les méthodes de requête spécifiées
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+
+// Autoriser les en-têtes spécifiés
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// Vérifier la méthode de requête
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+
 // Vérifier si la session est démarrée
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

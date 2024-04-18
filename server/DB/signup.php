@@ -1,34 +1,47 @@
 <?php
-    // Connexion à la base de données
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "reversia_db";
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
-    // Vérification de la connexion
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "reversia_db";
 
-    // Récupération des données du formulaire d'inscription
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $country = $_POST['country'];
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Hash du mot de passe avant de le stocker dans la base de données
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Requête SQL pour insérer le nouveau joueur dans la table JOUEUR
-    $sql = "INSERT INTO JOUEUR (username, email, password, country) VALUES ('$username', '$email', '$hashed_password', '$country')";
+$input = json_decode(file_get_contents("php://input"), true);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+$username = $input['username'] ?? '';
+$email = $input['email'] ?? '';
+$password = $input['password'] ?? '';
+$country = $input['country'] ?? '';
 
-    $conn->close();
+if (empty($username) || empty($email) || empty($password) || empty($country)) {
+    echo "All fields are required";
+    exit;
+}
+
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("INSERT INTO JOUEUR (username, email, password, country) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $username, $email, $hashedPassword, $country);
+
+if ($stmt->execute()) {
+    echo "Signup successful";
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+$stmt->close();
+$conn->close();
 
