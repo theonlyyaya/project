@@ -1,3 +1,4 @@
 <?php
-require_once('../app/configDB.php');
-require_once('../app/models/user.php');
+
+require_once('../app/config/DatabaseConnector.php');
+require_once('../app/models/User.php');
