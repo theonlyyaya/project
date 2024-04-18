@@ -27,4 +27,8 @@ export class DashboardPage {
     this.router.navigate(['/how-to-play']); 
   }
 
+    openProfile() {
+    this.router.navigate(['/profile']); 
+  }
+
 }
