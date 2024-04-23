@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DbapiService } from '../services/dbapi.service';
 
 @Component({
   selector: 'app-login',
@@ -11,20 +11,17 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private dbapiService: DbapiService) {}
 
   login() {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+    this.dbapiService.login(this.email, this.password).subscribe(response => {
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
+        this.router.navigate(['/dashboard']);
+      } else {
+        console.error('Login error:', response);
+      }
     });
-    this.http.post<string>('http://localhost/reversia_db/login.php', { email: this.email, password: this.password }, { headers, responseType: 'text' as 'json' })
-      .subscribe(response => {
-        if (response.trim() === 'Login successful') {
-          this.router.navigate(['/dashboard']);
-        } else {
-          console.error('Login error:', response);
-        }
-      });
   }
 
   navigateToSignup() {

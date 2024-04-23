@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbapiService {
-  private apiLogin = 'http://localhost/reversia_db/login.php';
-  private apiSignup = 'http://localhost/reversia_db/signup.php';
+  private apiUrl = 'http://localhost/reversia_db/';
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<string> {
-    return this.http.post(this.apiLogin, { email, password }, { responseType: 'text' });
+  login(email: string, password: string) {
+    return this.http.post<any>(`${this.apiUrl}login.php`, { email, password });
   }
 
-  signUp(username: string, email: string, password: string, country: string): Observable<string> {
-    return this.http.post(this.apiSignup, { username, email, password, country }, { responseType: 'text' });
+  signUp(username: string, email: string, password: string, country: string) {
+    return this.http.post<any>(`${this.apiUrl}signup.php`, { username, email, password, country });
+  }
+
+  getUserInfoFromSession(token: string) {
+    return this.http.post<any>(`${this.apiUrl}getUserInfoFromSession.php`, { token });
   }
 }

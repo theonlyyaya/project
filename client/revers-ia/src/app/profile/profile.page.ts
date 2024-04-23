@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx'; // Import Camera module for taking pictures
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -8,15 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage {
-  userImage: string = 'assets/default-profile-image.jpg'; // Default profile image path
-  userName: string = '';
-  userEmail: string = '';
+  userImage: string = 'https://i.pinimg.com/564x/31/db/bc/31dbbce0809a684c590774a85c73dde5.jpg';
+  userInfo: any;
 
-  constructor(private camera: Camera, private router: Router) {}
+  constructor(private camera: Camera, private router: Router, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      this.http.post<any>('http://localhost/reversia_db/getUserInfoFromSession.php', { token: authToken })
+        .subscribe(data => {
+          localStorage.setItem('authToken', data.token);
+          this.userInfo = data;
+        });
+    }
+  }
 
   changeProfileImage() {
-    // Implement logic to open camera or photo gallery to change profile image
-    // Example using Camera plugin (Make sure to install and configure Camera plugin)
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -25,24 +34,13 @@ export class ProfilePage {
     };
 
     this.camera.getPicture(options).then((imageData: any) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's a file URI, you may want to update the view by setting userImage to the new image path
-      this.userImage = (<any>window).Ionic.WebView.convertFileSrc(imageData); // Convert file URI to a format that can be displayed in img tag
+      this.userImage = (<any>window).Ionic.WebView.convertFileSrc(imageData);
     }, (err: any) => {
       console.log('Error taking picture:', err);
     });
   }
 
-  saveProfile() {
-    // Implement logic to save user profile details
-    console.log('Name:', this.userName);
-    console.log('Email:', this.userEmail);
-    // Add more logic to save other user details if needed
-  }
-
   logout() {
-    // Implement logic to logout the user
-    // For example, navigate to the login page
     this.router.navigate(['/login']);
   }
 }
