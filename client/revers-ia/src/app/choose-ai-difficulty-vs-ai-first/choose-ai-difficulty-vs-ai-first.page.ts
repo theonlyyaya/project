@@ -12,7 +12,7 @@ export class ChooseAiDifficultyVsAiFirstPage implements OnInit {
     ngOnInit() {}
     
     goHome() {
-      this.router.navigate(['/tabs/tab1']);
+      this.router.navigate(['/dashboard']);
     }
     GoToChooseSecondAIDifficultyVSPlayer(firstAIDifficulty: string) {
       this.router.navigate(['/choose-ai-difficulty-vs-ai-second', {firstAIDifficulty}]);

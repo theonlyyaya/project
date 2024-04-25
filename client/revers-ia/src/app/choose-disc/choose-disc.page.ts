@@ -13,7 +13,7 @@ export class ChooseDiscPage implements OnInit {
   ngOnInit() {
   }
   goHome() {
-    this.router.navigate(['/tabs/tab1']);
+    this.router.navigate(['/dashboard']);
   }
   GoToChooseAIDifficultyVSPlayer(playerDisc: string) {
     this.router.navigate(['/choose-ai-difficulty-vs-player', {playerDisc}]);

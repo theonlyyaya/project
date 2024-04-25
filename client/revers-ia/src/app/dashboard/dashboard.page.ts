@@ -19,8 +19,8 @@ export class DashboardPage {
     this.router.navigate(['/choose-disc']);
   }
 
-  goToAIVsAIPage() {
-    this.router.navigate(['/ai-vs-ai']); 
+  goToChooseAIDifficultyVSAIFirst() {
+    this.router.navigate(['/choose-ai-difficulty-vs-ai-first']); 
   }
 
   goToHowToPlay() {

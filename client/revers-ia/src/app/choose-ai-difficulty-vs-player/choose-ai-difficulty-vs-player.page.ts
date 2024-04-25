@@ -21,7 +21,7 @@ export class ChooseAiDifficultyVsPlayerPage implements OnInit {
     })
   }
   goHome() {
-    this.router.navigate(['/tabs/tab1']);
+    this.router.navigate(['/dashboard']);
   }
   goToPlayerVsAIPage(playerDisc: string, difficulty: string) {
     this.router.navigate(['/player-vs-ai', {playerDisc, difficulty}]); // Remplace '/player-vs-ai' par le chemin de ta page "player-vs-ai"
