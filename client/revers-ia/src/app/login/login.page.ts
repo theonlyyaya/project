@@ -1,6 +1,6 @@
-// login.page.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DbapiService } from '../services/dbapi.service';
 
 @Component({
   selector: 'app-login',
@@ -11,20 +11,20 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dbapiService: DbapiService) {}
 
   login() {
-    // Ici, vous pouvez ajouter votre logique d'authentification
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-
-    // Supposons que l'authentification est réussie, vous pouvez rediriger l'utilisateur
-    // Remplacez '/dashboard' par le chemin de votre page de dashboard ou page principale
-    this.router.navigate(['/dashboard']);
+    this.dbapiService.login(this.email, this.password).subscribe(response => {
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
+        this.router.navigate(['/dashboard']);
+      } else {
+        console.error('Login error:', response);
+      }
+    });
   }
 
   navigateToSignup() {
-    // Navigue vers la page d'inscription
     this.router.navigate(['/signup']);
   }
 }
