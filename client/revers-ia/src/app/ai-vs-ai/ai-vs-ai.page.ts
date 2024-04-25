@@ -106,10 +106,13 @@ export class AiVsAiPage implements OnInit {
 
   getImagePath(cell: number): string {
     if (cell === -1) {
-      return 'https://i.postimg.cc/t4QdpLGT/black-circle.png';
+      return "../../assets/stone_black.svg";
     }
     if (cell === 1) {
-      return 'https://i.postimg.cc/HWRrXXx8/white-circle.png';
+      return "../../assets/stone_white.svg";
+    }
+    if (cell === 2) {
+      return "../../assets/stone_hint.svg";
     }
     return '';
   }

@@ -88,41 +88,44 @@ export class PlayerVsAiPage implements OnInit {
   }
 
   makeOneMove(playerDisc: string, difficulty: string, row: number, col: number) {
-    this.apiService.makeOneMove(playerDisc, difficulty, row, col).subscribe(
-      (response) => {
-        const winner = response.winner;
-        if (winner) {
-          this.displayWinnerMessage(winner);
-        } else {
-          // Continue with the game logic if there is no winner
-          this.apiService.getBoard().subscribe(
-            (board) => {
-              this.cells = board;
-              this.updateScores();
-              if ((this.playerDisc === 'Black' && this.activePlayer === -1) || (this.playerDisc === 'White' && this.activePlayer === 1)){
-                this.apiService.getPossibleMoves().subscribe(
-                  (possibleMoves) => {
-                    for(let coordinates of possibleMoves)
-                      this.cells_moves[coordinates[0]][coordinates[1]] = 2;   
-                  },
-                  (error) => {
-                    console.error('Error fetching board:', error);
-                  }
-                );
+    if (!(row == -1 && ((this.activePlayer === -1 && playerDisc == "Black") || ((this.activePlayer == 1 && playerDisc == "White"))))) {
+    // if sert a eviter des appels excessifs au serveur
+      this.apiService.makeOneMove(playerDisc, difficulty, row, col).subscribe(
+        (response) => {
+          const winner = response.winner;
+          if (winner) {
+            this.displayWinnerMessage(winner);
+          } else {
+            // Continue with the game logic if there is no winner
+            this.apiService.getBoard().subscribe(
+              (board) => {
+                this.cells = board;
+                this.updateScores();
+                if ((this.playerDisc === 'Black' && this.activePlayer === -1) || (this.playerDisc === 'White' && this.activePlayer === 1)){
+                  this.apiService.getPossibleMoves().subscribe(
+                    (possibleMoves) => {
+                      for(let coordinates of possibleMoves)
+                        this.cells_moves[coordinates[0]][coordinates[1]] = 2;   
+                    },
+                    (error) => {
+                      console.error('Error fetching board:', error);
+                    }
+                  );
+                }
+                //localStorage.setItem('reversi_board', JSON.stringify(board));
+              },
+              (error) => {
+                console.error('Error fetching board:', error);
               }
-              //localStorage.setItem('reversi_board', JSON.stringify(board));
-            },
-            (error) => {
-              console.error('Error fetching board:', error);
-            }
-          );
+            );
+          }
+        },
+        (error) => {
+          // Handle errors here
+          console.error('Error making move:', error);
         }
-      },
-      (error) => {
-        // Handle errors here
-        console.error('Error making move:', error);
-      }
-    );
+      );
+    }
   }
 
   updateScores() {
@@ -163,13 +166,13 @@ export class PlayerVsAiPage implements OnInit {
 
   getImagePath(cell: number): string {
     if (cell === -1) {
-      return 'https://i.postimg.cc/t4QdpLGT/black-circle.png';
+      return "../../assets/stone_black.svg";
     }
     if (cell === 1) {
-      return 'https://i.postimg.cc/HWRrXXx8/white-circle.png';
+      return "../../assets/stone_white.svg";
     }
     if (cell === 2) {
-      return 'https://i.postimg.cc/mr2Q5Kbb/advise-circle.png';
+      return "../../assets/stone_hint.svg";
     }
     return '';
   }

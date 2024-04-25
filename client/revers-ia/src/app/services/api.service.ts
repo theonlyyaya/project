@@ -8,7 +8,8 @@ import { tap } from 'rxjs/operators';
 })
 export class ApiService {
   
-  private apiUrl = 'https://projet4a.onrender.com'; // online
+  //private apiUrl = 'https://projet4a.onrender.com'; // online
+  private apiUrl = 'http://localhost:5000'; // local
 
   
 

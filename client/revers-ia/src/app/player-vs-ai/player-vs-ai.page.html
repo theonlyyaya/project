@@ -26,14 +26,17 @@
 <div class="game-board">
   <ion-row *ngFor="let row of cells_moves; let i = index">
     <ion-col *ngFor="let cell of row; let j = index">
-      <ion-button class="cell" (click)="makeOneMove(playerDisc, difficulty, i, j)">
+      <button (click)="makeOneMove(playerDisc, difficulty, i, j)">
         <img class="circle" [src]="getImagePath(cell)">
-      </ion-button>
-    </ion-col>
+      </button>
+    </ion-col>  
   </ion-row>
-  <ion-button (click)="makeOneMove(playerDisc, difficulty, -1, -1)" shape="round" color="dark">IA move</ion-button>
-  <ion-button (click)="reload()" shape="round" color="light">Reload</ion-button>
-  <ion-button (click)="goHome()" shape="round" color="light">Home</ion-button>
+  
+  <div class="buttons">
+    <ion-img (click)="makeOneMove(playerDisc, difficulty, -1, -1)" src="../../assets/buttons/AI Move Button.svg" alt="IA move"></ion-img>
+    <ion-img (click)="reload()" src="../../assets/buttons/Reload Button.svg" alt="Reload"></ion-img>
+    <ion-img (click)="goHome()" src="../../assets/buttons/Home Button.svg" alt="Home"></ion-img>
+  </div>
 </div>
   
 

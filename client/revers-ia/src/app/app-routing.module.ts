@@ -39,6 +39,14 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
+  {
+    path: 'choose-ai-difficulty-vs-ai-first',
+    loadChildren: () => import('./choose-ai-difficulty-vs-ai-first/choose-ai-difficulty-vs-ai-first.module').then( m => m.ChooseAiDifficultyVsAiFirstPageModule)
+  },
+  {
+    path: 'choose-ai-difficulty-vs-ai-second',
+    loadChildren: () => import('./choose-ai-difficulty-vs-ai-second/choose-ai-difficulty-vs-ai-second.module').then( m => m.ChooseAiDifficultyVsAiSecondPageModule)
+  },
 
 ];
 @NgModule({

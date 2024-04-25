@@ -313,3 +313,8 @@ def reload():
     reversi_game.reload()
     return jsonify(reversi_game.board)
 
+#''' local
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
+#'''
+

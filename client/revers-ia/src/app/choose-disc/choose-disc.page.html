@@ -1,19 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>choose-disc</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div class="dashboard">
-    <ion-img src="../../assets/logo/ReversAI.png" style="min-width:241px; min-height:48px" alt="ReversAI"></ion-img>
-    <br><br>
-    <ion-button (click)="GoToChooseAIDifficultyVSPlayer('Black')" shape="round" class="div-9 black-button">Black</ion-button>
-    <ion-button (click)="GoToChooseAIDifficultyVSPlayer('White')" shape="round" class="div-10 black-button" color="dark">White</ion-button>
+    <ion-img src="../../assets/Choose your disc.svg" style="min-width:241px; min-height:48px" alt="ReversAI"></ion-img>
     <br><br><br>
-    <ion-button (click)="goHome()" shape="round" class="div-10 black-button">Home</ion-button>
+    <ion-img (click)="GoToChooseAIDifficultyVSPlayer('Black')" src="../../assets/buttons/Black Button.svg"></ion-img>
+    <ion-img (click)="GoToChooseAIDifficultyVSPlayer('White')" src="../../assets/buttons/White Button.svg"></ion-img>
+    <br><br><br>
+    <ion-img (click)="goHome()" src="../../assets/buttons/Home Button.svg" alt="Home"></ion-img>
   </div>    
 </ion-content>

@@ -1,12 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Offline</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div class="container">
     <div class="player player1" [ngClass]="{ 'active': activePlayer === -1 }">
@@ -34,13 +25,18 @@
     <div class="game-board">
       <ion-row *ngFor="let row of cells_moves; let i = index">
         <ion-col *ngFor="let cell of row; let j = index">
-          <ion-button class="cell" (click)="makeMove(i, j)">
+          <button (click)="makeMove(i, j)">
             <img class="circle" [src]="getImagePath(cell)">
-          </ion-button>
-        </ion-col>
+          </button>
+        </ion-col>  
       </ion-row>
-      <ion-button (click)="reload()" shape="round" color="dark">Reload</ion-button>
-      <ion-button (click)="goHome()" shape="round" color="light">Home</ion-button>
+      
+      <div class="buttons">
+        <ion-img (click)="reload()" src="../../assets/buttons/Reload Button.svg" style="min-width:241px; min-height:48px" alt="Reload"></ion-img>
+        <ion-img (click)="goHome()" src="../../assets/buttons/Home Button.svg" style="min-width:241px; min-height:48px" alt="Home"></ion-img>
+      </div>
+      <!-- <ion-button (click)="reload()" shape="round" color="dark">Reload</ion-button>
+      <ion-button (click)="goHome()" shape="round" color="light">Home</ion-button> -->
     </div>
 
 </ion-content>
