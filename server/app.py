@@ -373,6 +373,3 @@ def make_one_move_ai_vs_ai():
 def reload():
     reversi_game.reload()
     return jsonify(reversi_game.board)
-
-if __name__ == "__main__":
-    app.run(port=5000)
