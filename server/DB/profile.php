@@ -1,27 +1,7 @@
 <?php
-// Autoriser l'accès depuis n'importe quelle origine
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit;
-}
-
-// Connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "reversia_db";
-
-// Créez une connexion à la base de données
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérifiez la connexion
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
+require_once 'db_connect.php';
 
 // Requête SQL pour récupérer les informations de l'utilisateur
 $sql = "SELECT username, email, country FROM users WHERE user_id = ?"; // Remplacez users et user_id par les noms de votre table et votre colonne d'identifiant utilisateur

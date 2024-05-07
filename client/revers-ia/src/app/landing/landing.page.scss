@@ -1,53 +1,61 @@
+ion-content {
+    --background: #208D3F; 
+}
 
 .content {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre portée */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.logo{
+    margin-top:15px;
+}
+
+.white-box {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.circular-image {
-    border-radius: 50%;
-    overflow: hidden;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 2%;
-}
-
-.login-buttons button {
-    color: rgb(0, 0, 0);
-    background: #208D3F;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre portée */
-    width: 200px;
-    font-size: large;
-    font-weight: 600;
-    height: fit-content;
+.login-buttons {
     margin-top: 10px;
-    border-radius: 20px;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-.continue-with {
-    p {
-        text-align: center;
-      }
-    margin-top: 20px;
-    justify-content: flex-end;
-    margin-top: 10px;
+.custom-button {
+    margin: 5px;
+    background-color: #3E7F30;
+    min-width: 150px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.continue-with ion-icon {
-    font-size: 24px;
-    margin-right: 10px;
-    width: 50px;
-    height: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 50%;
+.custom-button:hover {
+    background-color: #2F5D1D;
 }
-  
-  
-  
-  
-    
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+
+.social-icons img {
+    width: 30px; // Ajustez la taille selon vos besoins
+    height: 30px; // Ajustez la taille selon vos besoins
+    margin-inline: 10px;
+    cursor: pointer;
+}
