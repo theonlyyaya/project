@@ -1,27 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>How to play</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title size="large">How to play</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="dashboard">
+    <ion-img src="../../assets/How to play.svg" style="min-width:241px; min-height:48px" alt="ReversAI"></ion-img>
+    <br><br>
+    <p>How to play description</p>
+    <br><br><br><br>
+    <ion-img (click)="goHome()" src="../../assets/buttons/Home Button.svg" style="min-width:241px; min-height:48px" alt="Home"></ion-img>
 
-  <ion-content>
-    <h2>
-       How to play
-    </h2>
-  </ion-content>
-
+    <!-- <ion-button (click)="GoToChooseSecondAIDifficultyVSPlayer('Easy')" shape="round" class="div-9 black-button">Easy</ion-button>
+    <ion-button (click)="GoToChooseSecondAIDifficultyVSPlayer('Medium')" shape="round" class="div-10 black-button">Medium</ion-button>
+    <ion-button (click)="GoToChooseSecondAIDifficultyVSPlayer('Hard')" shape="round" class="div-10 black-button">Hard</ion-button>
+    <br><br><br>
+    <ion-button (click)="goHome()" shape="round" class="div-10 black-button">Home</ion-button> -->
+  </div>    
 </ion-content>
-

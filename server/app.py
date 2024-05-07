@@ -234,7 +234,47 @@ class ReversiGrid():
             else:
                 print(f"White: {best_move} < from possible move {legal_moves}")
             return best_move
-    
+        
+    def make_one_move_ai_vs_ai(self, player1, player2): # player = difficulty (type of AI)
+    # player: model description
+    # board_stat: current 8x8 board status
+    # turn: 1 or -1 - black or white turn
+        # if current move is for player, skip
+        if self.current_player == -1:
+            player = player1
+        else:
+            player = player2
+        device = torch.device("cpu")
+
+        conf = {}
+        
+        if (player == 'Easy'):
+            conf['player']= ''
+        elif (player1 == 'Medium'):
+            conf['player']= ''
+        elif (player1 == 'Hard'):
+            conf['player']= 'server\\models\\Hard.pt'
+        
+        model = torch.load(conf['player'],map_location=torch.device('cpu'))
+        model.eval()
+        input_seq_boards = input_seq_generator(self.board,model.len_inpout_seq)
+        
+        
+        #if black is the current player the board should be multiplay by -1
+        if (self.current_player == -1):
+            model_input=np.array([input_seq_boards])*-1
+        else:
+            model_input = np.array([input_seq_boards])
+        move1_prob = model(torch.tensor(model_input).float().to(device))
+        move1_prob = move1_prob.cpu().detach().numpy().reshape(8,8)
+        legal_moves = get_legal_moves(self.board, self.current_player)
+        if len(legal_moves) > 0:
+            best_move = find_best_move(move1_prob,legal_moves)
+            if (self.current_player == -1):
+                print(f"Black: {best_move} < from possible move {legal_moves}")
+            else:
+                print(f"White: {best_move} < from possible move {legal_moves}")
+            return best_move
 
     def flip_pieces(self, row, col):
         directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -307,11 +347,32 @@ def make_one_move():
 
     return response
 
+@app.route('/make_one_move_ai_vs_ai', methods=['POST'])
+def make_one_move_ai_vs_ai():
+    data = request.get_json()
+    player1 = data['firstAIDifficulty']
+    player2 = data['secondAIDifficulty']
+    row, col = reversi_game.make_one_move_ai_vs_ai(player1, player2) # type: ignore
+    if (row == -1 or col == -1):
+        row = data['row']
+        col = data['col']
+    result = reversi_game.make_move(row, col)
+    # Extract the winner information from the result
+    winner = result.get("winner")
+    
+    response = jsonify(result)
+    response.headers.add('Access-Control-Allow-Origin', '*')  # Adjust the origin based on your requirements
+    if winner:
+        # Add the winner information to the response
+        response.headers.add('winner', winner) # type: ignore
+
+    return response
+
 
 @app.route('/reload', methods=['POST'])
 def reload():
     reversi_game.reload()
     return jsonify(reversi_game.board)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(port=5000)

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -191,7 +191,6 @@ export class PlayerVsAiPage implements OnInit {
         console.error('Error making move:', error);
       }
     );
-    
   }
   
 }

@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ApiService {
   
-  private apiUrl = 'https://fictional-rotary-phone-xg9x69vvr6jfgr-5000.app.github.dev/'//'https://localhost:5000'//'https://project-2g6w.onrender.com'; // online
+  private apiUrl = 'https://localhost:5000' //'https://fictional-rotary-phone-xg9x69vvr6jfgr-5000.app.github.dev/'////'https://project-2g6w.onrender.com'; // online
 
   
 
@@ -39,6 +39,15 @@ export class ApiService {
   makeMove(row: number, col: number): Observable<any> {
     // Make the move and notify subscribers
     return this.http.post<any>(`${this.apiUrl}/make_move`, { row, col }).pipe(
+      tap(() => {
+        this.moveSubject.next();
+      })
+    );
+  }
+
+  makeOneMoveAiVsAI(firstAIDifficulty : string, secondAIDifficulty : string): Observable<any> {
+    // Make the move and notify subscribers
+    return this.http.post<any>(`${this.apiUrl}/make_one_move_ai_vs_ai`, { firstAIDifficulty, secondAIDifficulty }).pipe(
       tap(() => {
         this.moveSubject.next();
       })
