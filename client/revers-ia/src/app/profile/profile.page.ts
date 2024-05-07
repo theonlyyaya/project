@@ -18,8 +18,8 @@ export class ProfilePage {
     const authToken = localStorage.getItem('authToken');
     if (authToken) {
       this.http.post<any>('http://localhost/reversia_db/getUserInfoFromSession.php', { token: authToken })
-        .subscribe(data => {
-          localStorage.setItem('authToken', data.token);
+      .subscribe((data: { token: string; }) => {
+        localStorage.setItem('authToken', data.token);
           this.userInfo = data;
         });
     }

@@ -1,6 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DbapiService } from '../services/dbapi.service';
 import { CountryService } from '../country.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +19,9 @@ export class SignupPage implements OnInit {
   confirmPassword: string = '';
   country: string = '';
 
-  constructor(private router: Router, private countryService: CountryService) { }
+
+  constructor(private router: Router, private dbapiService: DbapiService, private countryService: CountryService, private http: HttpClient) { }
+
 
   ngOnInit() {
     this.countryService.getCountries().subscribe((data) => {
@@ -26,15 +32,18 @@ export class SignupPage implements OnInit {
     });
   }
 
-  signUp() {
-    // Logique d'inscription
-    console.log('Username:', this.username);
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Confirm Password:', this.confirmPassword);
-    console.log('Country:', this.country);
 
-    // Redirection après inscription
-    this.router.navigate(['/login']); // Assurez-vous que le chemin est correct
+  signUp() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    this.http.post<string>('http://localhost/reversia_db/signup.php', { username: this.username, email: this.email, password: this.password, country: this.country }, { headers, responseType: 'text' as 'json' })
+      .subscribe(response => {
+        if (response.trim() === 'Signup successful') {
+          this.router.navigate(['/login']);
+        } else {
+          console.error('Signup error:', response);
+        }
+      });
   }
 }
