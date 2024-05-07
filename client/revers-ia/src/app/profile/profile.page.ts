@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfilePage {
   userImage: string = 'https://i.pinimg.com/564x/31/db/bc/31dbbce0809a684c590774a85c73dde5.jpg';
   userInfo: any;
 
-  constructor(private camera: Camera, private router: Router, private http: HttpClient) {}
+  constructor(private camera: Camera, private platform: Platform, private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
     const authToken = localStorage.getItem('authToken');
@@ -24,24 +25,28 @@ export class ProfilePage {
         });
     }
   }
-  
+
   goHome() {
     this.router.navigate(['/dashboard']);
   }
 
   changeProfileImage() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
+    if (this.platform.is('cordova')) {
+      const options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+      };
 
-    this.camera.getPicture(options).then((imageData: any) => {
-      this.userImage = (<any>window).Ionic.WebView.convertFileSrc(imageData);
-    }, (err: any) => {
-      console.log('Error taking picture:', err);
-    });
+      this.camera.getPicture(options).then((imageData: any) => {
+        this.userImage = (<any>window).Ionic.WebView.convertFileSrc(imageData);
+      }, (err: any) => {
+        console.log('Error taking picture:', err);
+      });
+    } else {
+      console.log('Cordova not available. Cannot take picture.');
+    }
   }
 
   logout() {
