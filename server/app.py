@@ -250,9 +250,9 @@ class ReversiGrid():
         
         if (player == 'Easy'):
             conf['player']= ''
-        elif (player1 == 'Medium'):
+        elif (player == 'Medium'):
             conf['player']= ''
-        elif (player1 == 'Hard'):
+        elif (player == 'Hard'):
             conf['player']= 'server\\models\\Hard.pt'
         
         model = torch.load(conf['player'],map_location=torch.device('cpu'))
