@@ -24,6 +24,10 @@ export class ProfilePage {
         });
     }
   }
+  
+  goHome() {
+    this.router.navigate(['/dashboard']);
+  }
 
   changeProfileImage() {
     const options: CameraOptions = {

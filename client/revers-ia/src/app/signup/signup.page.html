@@ -1,46 +1,34 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Sign Up</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding class="signup">
+<div padding class="signup">
   <div class="form-container">
     <h2>Sign Up</h2>
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" [(ngModel)]="username"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Confirm Password</ion-label>
-        <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Pays</ion-label>
-        <ion-select interface="popover" placeholder="Sélectionnez votre pays" [(ngModel)]="country">
-          <ion-select-option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</ion-select-option>
-        </ion-select>
-      </ion-item>      
-    </ion-list>
+    <div class="input-container">
+      <label for="username">Username</label>
+      <input type="text" id="username" [(ngModel)]="username">
+    </div>
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input type="email" id="email" [(ngModel)]="email">
+    </div>
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input type="password" id="password" [(ngModel)]="password">
+    </div>
+    <div class="input-container">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword">
+    </div>
+    <div class="input-container">
+      <label for="country">Pays</label>
+      <select id="country" [(ngModel)]="country">
+        <option value="">Sélectionnez votre pays</option>
+        <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+      </select>
+    </div>
     <div class="centered-button-container">
-      <ion-button expand="block" class="signup-button" (click)="signUp()">Sign Up</ion-button>
+      <button class="signup-button" (click)="signUp()">Sign Up</button>
     </div>
     <div class="login-option">
-      <p>Already have an account? <a href="#">Log in</a></p>
+      <p>Already have an account? <a href="../login/">Log in</a></p>
     </div>
   </div>
-</ion-content>
-
-
+</div>

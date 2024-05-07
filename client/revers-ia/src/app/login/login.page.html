@@ -1,22 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true" padding class="ion-padding">
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-    <div class="centered-button-container">
-      <button class="login-button" (click)="login()">Login</button>
+<div padding class="signup">
+  <div class="form-container">
+    <h2>Login</h2>
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input type="email" id="email" [(ngModel)]="email">
     </div>
-    <ion-button fill="clear" (click)="navigateToSignup()">Don't have an account? Sign Up</ion-button>
-  </ion-list>
-</ion-content>
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input type="password" id="password" [(ngModel)]="password">
+    </div>
+    <div class="centered-button-container">
+      <button class="signup-button" (click)="login()">Login</button>
+    </div>
+    <div class="login-option">
+      <p>Don't have an account? <a href="../signup/">Sign Up</a></p>
+    </div>
+  </div>
+</div>
