@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import os
 import numpy as np
 import torch
 
@@ -212,6 +213,7 @@ class ReversiGrid():
         elif (player == 'Medium'):
             conf['player']= ''
         elif (player == 'Hard'):
+            print("Current working directory:", os.getcwd())
             conf['player']= 'server/models/Hard.pt'
         
         model = torch.load(conf['player'],map_location=torch.device('cpu'))
@@ -253,6 +255,7 @@ class ReversiGrid():
         elif (player == 'Medium'):
             conf['player']= ''
         elif (player == 'Hard'):
+            print("Current working directory:", os.getcwd())
             conf['player']= 'server/models/Hard.pt'
         
         model = torch.load(conf['player'],map_location=torch.device('cpu'))
