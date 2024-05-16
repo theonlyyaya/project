@@ -208,13 +208,13 @@ class ReversiGrid():
         device = torch.device("cpu")
 
         conf = {}
+        print("Current working directory:", os.getcwd())
+        print("Directory's content:", os.listdir())
         if (player == 'Easy'):
             conf['player']= 'models/'
         elif (player == 'Medium'):
             conf['player']= 'models/model_20.pt'
         elif (player == 'Hard'):
-            print("Current working directory:", os.getcwd())
-            print("Directory's content:", os.listdir())
             conf['player']= 'models/model_e2205046.pt'
         
         model = torch.load(conf['player'],map_location=torch.device('cpu'))
@@ -251,13 +251,14 @@ class ReversiGrid():
 
         conf = {}
         
+
+        print("Current working directory:", os.getcwd())
+        print("Directory's content:", os.listdir())
         if (player == 'Easy'):
             conf['player']= 'models/'
         elif (player == 'Medium'):
             conf['player']= 'models/model_20.pt'
         elif (player == 'Hard'):
-            print("Current working directory:", os.getcwd())
-            print("Directory's content:", os.listdir())
             conf['player']= 'models/model_e2205046.pt'
         
         model = torch.load(conf['player'],map_location=torch.device('cpu'))
