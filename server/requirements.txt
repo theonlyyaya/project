@@ -1,5 +1,5 @@
 numpy
-pandas
+pandas == 2.1.1
 scikit-learn == 1.2.2
 flask
 flask-restful
@@ -8,5 +8,5 @@ flask-cors
 torch == 2.1.2
 scipy == 1.10.1
 h5py
-tqdm
+tqdm == 4.65.0
 gunicorn == 20.1.0
