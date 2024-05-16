@@ -209,9 +209,9 @@ class ReversiGrid():
 
         conf = {}
         if (player == 'Easy'):
-            conf['player']= ''
+            conf['player']= 'models/'
         elif (player == 'Medium'):
-            conf['player']= ''
+            conf['player']= 'models/model_20.pt'
         elif (player == 'Hard'):
             print("Current working directory:", os.getcwd())
             print("Directory's content:", os.listdir())
@@ -252,9 +252,9 @@ class ReversiGrid():
         conf = {}
         
         if (player == 'Easy'):
-            conf['player']= ''
+            conf['player']= 'models/'
         elif (player == 'Medium'):
-            conf['player']= ''
+            conf['player']= 'models/model_20.pt'
         elif (player == 'Hard'):
             print("Current working directory:", os.getcwd())
             print("Directory's content:", os.listdir())
