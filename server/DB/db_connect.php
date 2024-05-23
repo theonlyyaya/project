@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Informations de connexion à la base de données
-$servername = "sql7.freesqldatabase.com";
-$username = "sql7706885";
-$password = "zY4dM6GQpp";
-$dbname = "sql7706885";
+$servername = "localhost";
+$username = "id22208561projet4a";
+$password = "BigPatate1";
+$dbname = "id22208561_reversiadb";
 
 // Créer une connexion
 $conn = new mysqli($servername, $username, $password, $dbname);

@@ -37,7 +37,7 @@ export class SignupPage implements OnInit {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    this.http.post<string>('http://reversia.000webhostapp.com/signup.php', { username: this.username, email: this.email, password: this.password, country: this.country }, { headers, responseType: 'text' as 'json' })
+    this.http.post<string>('https://reversiadb.000webhostapp.com/signup.php', { username: this.username, email: this.email, password: this.password, country: this.country }, { headers, responseType: 'text' as 'json' })
       .subscribe(response => {
         if (response.trim() === 'Signup successful') {
           this.router.navigate(['/login']);
