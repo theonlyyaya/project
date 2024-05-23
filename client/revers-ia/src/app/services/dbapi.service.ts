@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DbapiService {
-  private apiUrl = 'http://localhost/reversia_db/';
+  private apiUrl = 'http://reversia.000webhostapp.com/';
 
   constructor(private http: HttpClient) { }
 

@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Informations de connexion à la base de données
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "reversia_db";
+$servername = "sql7.freesqldatabase.com";
+$username = "sql7706885";
+$password = "zY4dM6GQpp";
+$dbname = "sql7706885";
 
 // Créer une connexion
 $conn = new mysqli($servername, $username, $password, $dbname);
