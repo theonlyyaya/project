@@ -9,13 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Informations de connexion à la base de données
-$servername = "localhost";
-$username = "id22208561projet4a";
-$password = "BigPatate1";
-$dbname = "id22208561_reversiadb";
+$dsn = "mysql: dbname=id22208561_reversiadb; host=localhost";
+$user = "id22208561projet4a";
+$pswd = "BigPatate1";
+
+
+
 
 // Créer une connexion
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new PDO($dsn, $user, $pswd);
+$conn->query("USE id22208561_reversiadb");
 
 // Vérifier la connexion
 if ($conn->connect_error) {
