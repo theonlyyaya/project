@@ -11,6 +11,13 @@ export class DashboardPage {
 
   constructor(private router: Router) {}
 
+  // Méthode pour ouvrir le lien Google Forms dans un nouvel onglet
+  openGoogleForms() {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSfbnBLbptJmAdKuu2ATcRfw2PNSvFUD6mSYXi6MeKrhn6KlRQ/viewform?usp=sf_link', '_blank');
+  }
+
+  // Autres méthodes pour les différentes redirections
+
   goToOfflinePage() {
     this.router.navigate(['/offline']); 
   }
@@ -27,8 +34,7 @@ export class DashboardPage {
     this.router.navigate(['/how-to-play']); 
   }
 
-    openProfile() {
+  openProfile() {
     this.router.navigate(['/profile']); 
   }
-
 }
