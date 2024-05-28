@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DbapiService {
-  private apiUrl = 'https://reversiadb.000webhostapp.com/';
+  private apiUrl = 'https://revers-ia.000webhostapp.com/';
 
   constructor(private http: HttpClient) { }
 
